@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
 import { ReactSketchCanvas } from "react-sketch-canvas";
 import ws from './ws';
-import { FaUndo, FaRedo, FaEraser, FaTrash, FaTimes,FaPen } from 'react-icons/fa';
-import {containerStyle,controlsStyle,inputStyle,iconStyle,canvasStyle} from './styles';
+import { FaUndo, FaRedo, FaEraser, FaTrash, FaTimes, FaPen } from 'react-icons/fa';
+import { containerStyle, controlsStyle, inputStyle, iconStyle, canvasStyle } from './styles';
 
 const Canvas = () => {
   const canvasRef = useRef();
@@ -40,15 +40,10 @@ const Canvas = () => {
   };
 
   const handleLoad = async (paths) => {
-    if (paths && paths.length) {
-      console.log(canvasRef.current)
-      await canvasRef.current.clearCanvas();  // Clear the canvas before loading new paths
-      await canvasRef.current.loadPaths(paths);
-    }
+    console.log(canvasRef.current)
+    await canvasRef.current.clearCanvas();
+    await canvasRef.current.loadPaths(paths);
   };
-  const handleIconClick = async(e)=>{
-    console.log(e);
-  }
   return (
     <div style={containerStyle}>
       <div style={controlsStyle}>
@@ -63,17 +58,17 @@ const Canvas = () => {
           style={{ ...inputStyle, padding: '0' }}
           onChange={(e) => setStrokeColor(e.target.value)}
         />
-        <FaPen style={iconStyle} title="Pen" onClick={async ()=>await canvasRef.current.eraseMode(false)}/>
+        <FaPen style={iconStyle} title="Pen" onClick={async () => await canvasRef.current.eraseMode(false)} />
         <input
           type="number"
-          style={{...inputStyle,width:'30px'}}
+          style={{ ...inputStyle, width: '30px' }}
           onChange={(e) => setEraserWidth(Number(e.target.value))}
         />
-        <FaEraser style={iconStyle} title="Erase" onClick={async ()=>await canvasRef.current.eraseMode(true)}/>
-        <FaUndo style={iconStyle} title="Undo" onClick={async ()=>await canvasRef.current.undo()}/>
-        <FaRedo style={iconStyle} title="Redo" onClick={async ()=>await canvasRef.current.redo()}/>
-        <FaTimes style={iconStyle} title="Clear" onClick={async ()=>await canvasRef.current.clearCanvas()}/>
-        <FaTrash style={iconStyle} title="Delete" onClick={async ()=>await canvasRef.current.resetCanvas()}/>
+        <FaEraser style={iconStyle} title="Erase" onClick={async () => await canvasRef.current.eraseMode(true)} />
+        <FaUndo style={iconStyle} title="Undo" onClick={async () => await canvasRef.current.undo()} />
+        <FaRedo style={iconStyle} title="Redo" onClick={async () => await canvasRef.current.redo()} />
+        <FaTimes style={iconStyle} title="Clear" onClick={async () => await canvasRef.current.clearCanvas()} />
+        <FaTrash style={iconStyle} title="Delete" onClick={async () => await canvasRef.current.resetCanvas()} />
       </div>
       <div style={{ width: '80%', maxWidth: '950px', height: '80%', position: 'relative' }}>
         <ReactSketchCanvas
